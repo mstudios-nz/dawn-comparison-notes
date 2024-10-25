@@ -37,6 +37,12 @@ REVIEW######## Keep favicon, font cdn preconnet, title and info ##########  NOTE
 
 
 
+
+
+NOTE = scripts and styles below replaced by vite-tag entrypoints for React App
+
+
+
 REVIEW########### remove meta tags ################ NOTE: Review of each needed
 
     {% render 'meta-tags' %}
@@ -49,16 +55,10 @@ REVIEW########### remove meta tags ################ NOTE: Review of each needed
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
 
 
-
-
-
 done######### remove animation reveals - will implement own ##########################
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-
-
-
 
 done##########Keep required############
     {{ content_for_header }}
@@ -322,6 +322,12 @@ REVIEW######## How will we set global styles via CSS Variable and make customisa
       <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
       {% comment %}theme-check-enable AssetPreload{% endcomment %}
     {%- endunless -%}
+
+
+
+
+
+
 
 
 
