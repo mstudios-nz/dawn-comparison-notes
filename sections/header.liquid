@@ -1,3 +1,7 @@
+
+
+##### STYLES ###############
+
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -96,8 +100,16 @@
   }
 {%- endstyle -%}
 
+
+
+
+
+################ SCRIPTS ###################
+
+###CART####
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
+### APP BLOCKS ####
 {%- liquid
   for block in section.blocks
     if block.type == '@app'
@@ -106,6 +118,7 @@
   endfor
 -%}
 
+### STICKY HEADER ###
 <{% if section.settings.sticky_header_type != 'none' %}sticky-header data-sticky-type="{{ section.settings.sticky_header_type }}"{% else %}div{% endif %} class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
   {%- liquid
     assign social_links = false
@@ -119,6 +132,7 @@
       assign localization_forms = true
     endif
   -%}
+
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
       if section.settings.menu != blank
@@ -282,10 +296,16 @@
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
 
+
+
+### CART NOTIFICATION ###
 {%- if settings.cart_type == "notification" -%}
   {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
 {%- endif -%}
 
+
+
+### Behaviours for diufferent header types ####
 {% javascript %}
   class StickyHeader extends HTMLElement {
     constructor() {
@@ -398,6 +418,10 @@
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
 
+
+
+
+
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",
@@ -421,6 +445,10 @@
   }
 </script>
 
+
+
+
+#### ????  IF PAGE = INDEX  --- SEO or other key site info, route, search etc???? ####
 {%- if request.page_type == 'index' -%}
   {% assign potential_action_target = request.origin | append: routes.search_url | append: "?q={search_term_string}" %}
   <script type="application/ld+json">
@@ -437,6 +465,12 @@
     }
   </script>
 {%- endif -%}
+
+
+
+
+
+###################    SECTION SCHEMA    ###################
 
 {% schema %}
 {
